@@ -1,4 +1,6 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
 
 class inscription extends Model{
     private int $id;
@@ -11,7 +13,7 @@ class inscription extends Model{
     public function ac():AC{
         $sql = "select p.* from inscription i,personne 
                 p where p.id=i.ac_id
-                and p.role like 'ROLE_AC' 
+                and p.r ole like 'ROLE_AC' 
                 and i.id=".$this->id;
         return new AC() ; 
     }

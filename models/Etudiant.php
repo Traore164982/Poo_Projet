@@ -1,13 +1,17 @@
 <?php
+namespace App\Model;
+
 class Etudiant extends User{
     private string $matricule;
     private string $sexe;
     private string $adresse;
 
-     public function __construct()
-     {
-         self::$role="ROLE_Etudiant";
-     }
+    public function __construct()
+    {
+         self::$role="ROLE_ETUDIANT";
+    }
+
+
     public function getMatricule():string{
         return $this->matricule;
     }
@@ -29,10 +33,13 @@ class Etudiant extends User{
         $this->adresse=$adresse;
         return $this;
     }
-
-    public static function findAll():array{
-        $sql = "select * from".self::$table."where role like'".self::$role."'";
-        echo $sql;
-        return [];
+    
+    public function insert():int{
+        $db = parent::database();
+        $db->connexionDB();
+        $sql="INSERT INTO `personne` (`nom_complet`, `role`, `login`, `password`, `matricule`, `adresse`, `sexe`) VALUES (?,?,?,?,?,?,?)";
+        $result=$db->executeUpdate($sql,[$this->nomComplet,parent::$role,$this->login,$this->password,$this->matricule,$this->adresse,$this->sexe]);
+        $db->closeConnexion();
+        return $result;
     }
 }

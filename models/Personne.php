@@ -1,4 +1,8 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
+use App\Core\Database;
+
 abstract class Personne extends Model{
     //Attributs d'instances
     protected int $id;
@@ -8,10 +12,6 @@ abstract class Personne extends Model{
     private static int $nbrePersonne;
 
     //Methodes de la Classe
-    public function __construct()
-    {
-        parent::table();
-    }
 
 	public function getId():int{
 		return $this->id;
@@ -43,11 +43,18 @@ abstract class Personne extends Model{
     public static function setNbrPersonne(int $nbrePersonne):void{
         self::$nbrePersonne=$nbrePersonne;
     }
-    public static function findAll():array{
+    final public static function getRolee():string{
+        $table = get_called_class();
+        $table = str_replace("App\\Model\\","",$table);
+        return "ROLE_".strtoupper($table);
+
+    }
+
+  /*   public static function findAll():array{
         $sql = "select * from personne where role like '".self::$role."'";
         echo $sql;
         return [];
-    }
+    } */
 
 
 

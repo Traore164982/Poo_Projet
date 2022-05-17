@@ -1,4 +1,7 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
+
 class Classe extends Model{
     
     public function professeurs():array{

@@ -1,14 +1,19 @@
 <?php
+namespace App\Model;
+
 class RP extends User{
     public function __construct()
     {
-        $this->role="ROLE_RP";
+        parent::$role="ROLE_RP";
+    }
+    
+    public function insert():int{
+        $db = parent::database();
+        $db->connexionDB();
+        $sql="INSERT INTO `personne` (`nom_complet`, `role`, `login`, `password`, `matricule`, `adresse`, `sexe`) VALUES (?,?,?,?,?,?,?)";
+        $result=$db->executeUpdate($sql,[$this->nomComplet,parent::$role,$this->login,$this->password,$this->matricule,$this->adresse,$this->sexe]);
+        $db->closeConnexion();
+        return $result;
     }
 
-    public static function findAll(): array
-    {
-        $sql= "select * from ".self::table()." where role like'".self::$role."'";
-        echo $sql;
-        return [];
-    }
 }

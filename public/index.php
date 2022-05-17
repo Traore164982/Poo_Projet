@@ -1,16 +1,9 @@
 <?php
 // 1_ Inclure le fichier de la Classe
-require_once("../core/iModels.php");
-require_once("../core/Model.php");
-require_once("../models/Personne.php");
-require_once("../models/User.php");
-require_once("../models/Ac.php");
-require_once("../models/Etudiant.php");
-require_once("../models/RP.php");
-require_once("../models/Professeur.php");
-require_once("../models/Classe.php");
-require_once("../models/AnneeScolaire.php");
-require_once("../models/Inscription.php");
+require_once("../vendor/autoload.php");
+require_once("../core/fonctions.php");
+require_once("../routes/route.web.php");
+
 // 2_ Creer les Objets ou instanciation des Classes
 //Appel de la Methode de la Classe" nomméé Constructeur
 
@@ -18,5 +11,8 @@ require_once("../models/Inscription.php");
 
 // -> : Opérateur de Portee d'instance(Objet)
 // $pers1-> interface de la classe Visibilite sur tous les attributs et methodes publics de la classe
-$tra = new Professeur();
-$tra::findAll();
+/* $tra = new Professeur;
+$tra->setNomComplet("Mohamed Mbodji");
+$tra->setGrade("Ingenieur");
+$tra->insert(); */
+

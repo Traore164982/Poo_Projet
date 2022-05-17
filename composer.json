@@ -1,10 +1,21 @@
 {
     "name": "traore/poo_projet",
+    "autoload": {
+        "psr-4": {
+            "App\\Model\\": "models/",
+            "App\\Core\\": "core/",
+            "App\\Controller\\": "controllers/",
+            "App\\Exception\\": "exceptions/",
+            "App\\Route\\": "routes/"
+        }
+    },
     "authors": [
         {
             "name": "Traore164982",
             "email": "mouhamouha164982@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        
+    }
 }

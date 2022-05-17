@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 interface IModels{
     public function insert():int;
     public function update():int;
