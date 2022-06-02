@@ -1,6 +1,8 @@
 <?php
 namespace App\Model;
 
+use function App\Core\dd;
+
 abstract class User extends Personne{
     protected string $login;
     protected string $password;
@@ -24,14 +26,33 @@ abstract class User extends Personne{
         $result =parent::findBy("select * from personne where login=? and password=?",[$login,$password],true);
         return $result;
     }
+    public static function findAllUser(string $nom_complet="nom_complet"):array
+    {
+        $db= self::database();
+        $db->connexionDB(); 
+        $sql = "select * from ".parent::table()." where role not like '".Professeur::getRolee()."' order by ".$nom_complet."";
+        $result=$db->executeSelect($sql);
+        $db->closeConnexion();
+        return $result;
+    }
+
     public static function findAll():array
     {
         $db= self::database();
         $db->connexionDB(); 
-        $sql = "select * from ".parent::table()." where role not like'".Professeur::getRolee()."'";
+        $sql = "select * from ".parent::table()." where role like '".self::getRolee()."'";
         $result=$db->executeSelect($sql);
         $db->closeConnexion();
-        echo $sql;
         return $result;
     }
+/* 
+    public function findMaxid():object{
+        $db= self::database();
+        $db->connexionDB();
+        $sql = "select Max(id) from ".parent::table();
+        $result=$db->executeSelect($sql);
+        $db->closeConnexion();
+        return $result[0];
+    } */
+
 }

@@ -1,5 +1,9 @@
 <?php
 namespace App\Controller;
-class AnneeScolaireController{
+
+use App\Core\Controller;
+use Collator;
+
+class AnneeScolaireController EXTENDS Controller{
     
 }

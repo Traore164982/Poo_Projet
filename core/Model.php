@@ -1,6 +1,8 @@
 <?php 
 namespace App\Core;
 
+use App\Model\User;
+
 class Model implements IModels{
     protected static Database|null $database=null;
 
@@ -9,11 +11,9 @@ class Model implements IModels{
     }
     public static function table():string{
         $table = get_called_class();
-        $table = str_replace("App\\Model","",$table);
-        if ($table == "User" or $table = "AC"  or $table == "RP" or $table == "Professeur" or $table == "Etudiant"?"personne":strtolower($table)) {
-            return $table;
-        }
-           return $table;
+        $table = str_replace("App\\Model\\","",$table);
+        $table =($table == "User" or $table == "AC"  or $table == "RP" or $table == "Professeur" or $table == "Etudiant")?"personne":strtolower($table);
+        return $table;
     }
     public static function selected(array $t){
         $v="";
@@ -52,20 +52,18 @@ class Model implements IModels{
     public static function findAll():array{
         $db = self::database();
         $db->connexionDB();
-        $sql = "select * from".self::table();
+        $sql = 'select * from '.self::table();
         $results = $db->executeSelect($sql);
         $db->closeConnexion();
-        echo $sql;
         return $results;
     }
     public static function findById(int $id):object|null{
         $db = self::database();
         $db->connexionDB();
-        $sql = "select * from'".self::table()."'where id=$id";
+        $sql = "select * from ".self::table()." where id=$id";
         $result = $db->executeSelect($sql);
         $db->closeConnexion();
-        echo $sql;
-        return null;
+        return $result[0];
     }
     public static function findBy(string $sql,array $data=null,$single=false):object|null|array{
         $db = self::database();
@@ -74,6 +72,8 @@ class Model implements IModels{
         $db ->closeConnexion();
         return $result;
     }
+
+    
 
     /* public static function findAly(array $data=null,array $dat):object|null|array{
         $db = self::database();

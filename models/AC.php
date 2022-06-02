@@ -1,5 +1,6 @@
 <?php
 namespace App\Model;
+
 use App\Model\User;
 
 class AC extends User{
@@ -13,6 +14,7 @@ class AC extends User{
          parent::$role="ROLE_AC";
          $this->inscriptions=[];
     }
+
     public function insert():int
     {
         $db = parent::database();

@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Core;
 function dd($data):void{
     echo "<pre>";
     var_dump($data);
@@ -7,10 +7,23 @@ function dd($data):void{
     die();
 }
 
-function ddA(array $data):void{
-    echo "<pre>";
-    for($i=0; $i < count($data);$i++){ 
-        var_dump($data[$i]);        
+function ctrlMethode($ctrl,$action){
+    return explode("\\",$ctrl::class)[2]."/".$action;
+}
+
+function showNav(){
+    if (isset($_SESSION["user-connect"])) {
+        return "";
     }
-    echo "</pre>";
+    return "d-none";
+}
+
+
+function hidden(array $except=[],$hidden=true){
+    foreach ($except as $pers) {
+        if (Role::getRole()==$pers){
+            return $hidden?"d-none":"disabled";
+        }
+    }
+    return "";
 }

@@ -28,7 +28,7 @@ abstract class Personne extends Model{
     }
 
 
-    public function setId(int $id):self{
+    public function setId(int $id){
       $this->id=$id;
       return $this;
     }

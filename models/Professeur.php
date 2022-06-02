@@ -1,6 +1,8 @@
 <?php
 namespace App\Model;
 
+use function App\Core\dd;
+
 class Professeur extends Personne{
     private string $grade;
     
@@ -30,6 +32,7 @@ class Professeur extends Personne{
 
         return $this;
     }
+    
      public function classes():array{
          return [];
      }
@@ -41,5 +44,31 @@ class Professeur extends Personne{
         $result=$db->executeUpdate($sql,[$this->nomComplet,parent::$role,$this->grade]);
         $db->closeConnexion();
         return $result;
+    }
+
+    public static function findAll():array{
+        $db = self::database();
+        $db->connexionDB();
+        $sql = "select * from ".self::table()." where role like '".self::getRolee()."'";
+        $results = $db->executeSelect($sql);
+        $db->closeConnexion();
+        return $results;
+    }
+    public function update():int{
+        $db = parent::database();
+        $db->connexionDB();
+        $sql="UPDATE `personne` SET `nom_complet`=? , `grade`=? where `id`=?";
+        $result=$db->executeUpdate($sql,[$this->nomComplet,$this->grade,$this->id]);
+        $db->closeConnexion();
+        return $result;
+    }
+
+    public static function findProfModule($id){
+        $db = self::database();
+        $db->connexionDB();
+        $sql = "select * from affecter where personne_id=?";
+        $results = $db->executeSelect($sql,[$id]);
+        $db->closeConnexion();
+        return $results;
     }
 }
